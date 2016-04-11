@@ -30,6 +30,30 @@ def processCommand(rawCommand):
 		# All commands have a space in them
 		return
 
+	command = rawCommand.split(" ")[0]
+	subCommand = rawCommand.split(" ")[1]
+
+	if(command == "MOVE"):
+		if(subCommand == "FORWARD"):
+			pass
+		elif(subCommand == "LEFT"):
+			pass
+		elif(subCommand == "RIGHT"):
+			pass
+		elif(subCommand == "BACKWARD"):
+			pass
+		else:
+			print "Uknown MOVE subCommand " + subcommand
+	elif (command == "ACTION"):
+		if(subCommand == "STOP"):
+			pass
+		elif(subCommand == "DISCONNECT"):
+			pass
+		else:
+			pass
+	else:
+		print "Unknown command " + command
+
 receiveCommands(clientSocket):
 	running = True
 	while(running):
