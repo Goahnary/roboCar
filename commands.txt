@@ -1,0 +1,7 @@
+#starting picture capture
+
+python stream.py &
+
+#sending video to server:
+
+ffmpeg -i stream/pythonCam.jpg -vcodec copy -an -r 25 -f flv rtmp://wkuacm.org/:1427
