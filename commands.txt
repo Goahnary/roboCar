@@ -4,4 +4,4 @@ python stream.py &
 
 #sending video to server:
 
-ffmpeg -i stream/pythonCam.jpg -vcodec copy -an -r 25 -f flv rtmp://wkuacm.org/:1427
+ffmpeg -i stream/pythonCam.jpg -vcodec copy -an -r 24 -f flv rtmp://wkuacm.org/:1427
