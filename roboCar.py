@@ -1,111 +1,112 @@
 import RPi.GPIO as GPIO
 
 class roboCar(object):
-	currentAction = "STOPPED"
-	currentForwardBackwardAction = "STOPPED"
+	def __init(self):
+		self.currentAction = "STOPPED"
+		self.currentForwardBackwardAction = "STOPPED"
 
-	GPIO.setmode(GPIO.BOARD)
- 
-	Motor1A = 16
-	Motor1B = 18
-	Motor1E = 22
-
-	Motor2A = 21
-	Motor2B = 19
-	Motor2E = 23
+		GPIO.setmode(GPIO.BOARD)
 	 
-	GPIO.setup(Motor1A,GPIO.OUT)
-	GPIO.setup(Motor1B,GPIO.OUT)
-	GPIO.setup(Motor1E,GPIO.OUT)
+		self.Motor1A = 16
+		self.Motor1B = 18
+		self.Motor1E = 22
 
-	GPIO.setup(Motor2A,GPIO.OUT)
-	GPIO.setup(Motor2B,GPIO.OUT)
-	GPIO.setup(Motor2E,GPIO.OUT)
+		self.Motor2A = 21
+		self.Motor2B = 19
+		self.Motor2E = 23
+		 
+		GPIO.setup(self.Motor1A,GPIO.OUT)
+		GPIO.setup(self.Motor1B,GPIO.OUT)
+		GPIO.setup(self.Motor1E,GPIO.OUT)
+
+		GPIO.setup(self.Motor2A,GPIO.OUT)
+		GPIO.setup(self.Motor2B,GPIO.OUT)
+		GPIO.setup(self.Motor2E,GPIO.OUT)
 
 	def moveForward(self):
-		currentAction = "FORWARD"
-		currentForwardBackwardAction = "FORWARD"
+		self.currentAction = "FORWARD"
+		self.currentForwardBackwardAction = "FORWARD"
 
-		GPIO.output(Motor1A,GPIO.HIGH)
-		GPIO.output(Motor1B,GPIO.LOW)
-		GPIO.output(Motor1E,GPIO.HIGH)
+		GPIO.output(self.Motor1A,GPIO.HIGH)
+		GPIO.output(self.Motor1B,GPIO.LOW)
+		GPIO.output(self.Motor1E,GPIO.HIGH)
 
-		GPIO.output(Motor2A,GPIO.HIGH)
-		GPIO.output(Motor2B,GPIO.LOW)
-		GPIO.output(Motor2E,GPIO.HIGH)
+		GPIO.output(self.Motor2A,GPIO.HIGH)
+		GPIO.output(self.Motor2B,GPIO.LOW)
+		GPIO.output(self.Motor2E,GPIO.HIGH)
 
 
 	def moveBackward(self):
-		currentAction = "BACKWARD"
-		currentForwardBackwardAction = "BACKWARD"
+		self.currentAction = "BACKWARD"
+		self.currentForwardBackwardAction = "BACKWARD"
 
-		GPIO.output(Motor1A,GPIO.LOW)
-		GPIO.output(Motor1B,GPIO.HIGH)
-		GPIO.output(Motor1E,GPIO.HIGH)
+		GPIO.output(self.Motor1A,GPIO.LOW)
+		GPIO.output(self.Motor1B,GPIO.HIGH)
+		GPIO.output(self.Motor1E,GPIO.HIGH)
 
-		GPIO.output(Motor2A,GPIO.LOW)
-		GPIO.output(Motor2B,GPIO.HIGH)
-		GPIO.output(Motor2E,GPIO.HIGH)
+		GPIO.output(self.Motor2A,GPIO.LOW)
+		GPIO.output(self.Motor2B,GPIO.HIGH)
+		GPIO.output(self.Motor2E,GPIO.HIGH)
 
 	def moveLeft(self):
-		currentAction = "LEFT"
+		self.currentAction = "LEFT"
 
 		# if going wrong way, change here.
-		GPIO.output(Motor1A,GPIO.LOW)
-		GPIO.output(Motor1B,GPIO.HIGH)
-		GPIO.output(Motor1E,GPIO.HIGH)
+		GPIO.output(self.Motor1A,GPIO.LOW)
+		GPIO.output(self.Motor1B,GPIO.HIGH)
+		GPIO.output(self.Motor1E,GPIO.HIGH)
 
-		GPIO.output(Motor2A,GPIO.HIGH)
-		GPIO.output(Motor2B,GPIO.LOW)
-		GPIO.output(Motor2E,GPIO.HIGH)
+		GPIO.output(self.Motor2A,GPIO.HIGH)
+		GPIO.output(self.Motor2B,GPIO.LOW)
+		GPIO.output(self.Motor2E,GPIO.HIGH)
 
 	def moveRight(self):
-		currentAction = "RIGHT"
+		self.currentAction = "RIGHT"
 
 		# if going wrong way, change here.
-		GPIO.output(Motor1A,GPIO.HIGH)
-		GPIO.output(Motor1B,GPIO.LOW)
-		GPIO.output(Motor1E,GPIO.HIGH)
+		GPIO.output(self.Motor1A,GPIO.HIGH)
+		GPIO.output(self.Motor1B,GPIO.LOW)
+		GPIO.output(self.Motor1E,GPIO.HIGH)
 
-		GPIO.output(Motor2A,GPIO.LOW)
-		GPIO.output(Motor2B,GPIO.HIGH)
-		GPIO.output(Motor2E,GPIO.HIGH)
+		GPIO.output(self.Motor2A,GPIO.LOW)
+		GPIO.output(self.Motor2B,GPIO.HIGH)
+		GPIO.output(self.Motor2E,GPIO.HIGH)
 
 	def stopMoving(self):
-		currentAction = "STOPPED"
-		currentForwardBackwardAction = "STOPPED"
-		GPIO.output(Motor1E,GPIO.LOW)
-		GPIO.output(Motor2E,GPIO.LOW)
+		self.currentAction = "STOPPED"
+		self.currentForwardBackwardAction = "STOPPED"
+		GPIO.output(self.Motor1E,GPIO.LOW)
+		GPIO.output(self.Motor2E,GPIO.LOW)
 
 	def stopMoveForward(self):
-		if currentAction == "FORWARD":
+		if self.currentAction == "FORWARD":
 			stopMoving()
-		elif((currentAction == "LEFT" or currentAction == "RIGHT") and currentForwardBackwardAction == "FORWARD"):
-			currentForwardBackwardAction = "STOPPED"
+		elif((self.currentAction == "LEFT" or self.currentAction == "RIGHT") and self.currentForwardBackwardAction == "FORWARD"):
+			self.currentForwardBackwardAction = "STOPPED"
 
 	def stopMoveBackward(self):
-		if currentAction == "BACKWARD":
+		if self.currentAction == "BACKWARD":
 			stopMoving()
-		elif((currentAction == "LEFT" or currentAction == "RIGHT") and currentForwardBackwardAction == "BACKWARD"):
-			currentForwardBackwardAction = "STOPPED"
+		elif((self.currentAction == "LEFT" or self.currentAction == "RIGHT") and self.currentForwardBackwardAction == "BACKWARD"):
+			self.currentForwardBackwardAction = "STOPPED"
 
 	def stopTurnLeft(self):
-		if(currentAction == "LEFT"):
-			if(currentForwardBackwardAction == "STOPPED"):
+		if(self.currentAction == "LEFT"):
+			if(self.currentForwardBackwardAction == "STOPPED"):
 				stopMoving()
-			elif(currentForwardBackwardAction == "FORWARD"):
+			elif(self.currentForwardBackwardAction == "FORWARD"):
 				moveForward()
-			elif(currentForwardBackwardAction == "BACKWARD"):
+			elif(self.currentForwardBackwardAction == "BACKWARD"):
 				moveBackward()
 
 
 	def stopTurnRight(self):
-		if(currentAction == "RIGHT"):
-			if(currentForwardBackwardAction == "STOPPED"):
+		if(self.currentAction == "RIGHT"):
+			if(self.currentForwardBackwardAction == "STOPPED"):
 				stopMoving()
-			elif(currentForwardBackwardAction == "FORWARD"):
+			elif(self.currentForwardBackwardAction == "FORWARD"):
 				moveForward()
-			elif(currentForwardBackwardAction == "BACKWARD"):
+			elif(self.currentForwardBackwardAction == "BACKWARD"):
 				moveBackward()
 
 	def cleanupBeforeQuit(self):
