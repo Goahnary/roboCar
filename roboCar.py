@@ -7,12 +7,12 @@ class roboCar(object):
 
 		GPIO.setmode(GPIO.BOARD)
 	 
-		self.Motor1A = 16
-		self.Motor1B = 18
+		self.Motor1A = 18
+		self.Motor1B = 16
 		self.Motor1E = 22
 
-		self.Motor2A = 21
-		self.Motor2B = 19
+		self.Motor2A = 19
+		self.Motor2B = 21
 		self.Motor2E = 23
 		 
 		GPIO.setup(self.Motor1A,GPIO.OUT)
