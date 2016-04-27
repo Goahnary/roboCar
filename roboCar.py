@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 
 class roboCar(object):
-	def __init(self):
+	def __init__(self):
 		self.currentAction = "STOPPED"
 		self.currentForwardBackwardAction = "STOPPED"
 
