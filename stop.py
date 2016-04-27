@@ -5,7 +5,7 @@ GPIO.setmode(GPIO.BOARD)
  
 Motor1E = 22
 
-Motor2E = 19
+Motor2E = 23
  
 GPIO.setup(Motor1E,GPIO.OUT)
 
