@@ -22,7 +22,7 @@ class roboCar(object):
 	GPIO.setup(Motor2B,GPIO.OUT)
 	GPIO.setup(Motor2E,GPIO.OUT)
 
-	def moveForward():
+	def moveForward(self):
 		currentAction = "FORWARD"
 		currentForwardBackwardAction = "FORWARD"
 
@@ -35,7 +35,7 @@ class roboCar(object):
 		GPIO.output(Motor2E,GPIO.HIGH)
 
 
-	def moveBackward():
+	def moveBackward(self):
 		currentAction = "BACKWARD"
 		currentForwardBackwardAction = "BACKWARD"
 
@@ -47,7 +47,7 @@ class roboCar(object):
 		GPIO.output(Motor2B,GPIO.HIGH)
 		GPIO.output(Motor2E,GPIO.HIGH)
 
-	def moveLeft():
+	def moveLeft(self):
 		currentAction = "LEFT"
 
 		# if going wrong way, change here.
@@ -59,7 +59,7 @@ class roboCar(object):
 		GPIO.output(Motor2B,GPIO.LOW)
 		GPIO.output(Motor2E,GPIO.HIGH)
 
-	def moveRight():
+	def moveRight(self):
 		currentAction = "RIGHT"
 
 		# if going wrong way, change here.
@@ -71,25 +71,25 @@ class roboCar(object):
 		GPIO.output(Motor2B,GPIO.HIGH)
 		GPIO.output(Motor2E,GPIO.HIGH)
 
-	def stopMoving():
+	def stopMoving(self):
 		currentAction = "STOPPED"
 		currentForwardBackwardAction = "STOPPED"
 		GPIO.output(Motor1E,GPIO.LOW)
 		GPIO.output(Motor2E,GPIO.LOW)
 
-	def stopMoveForward():
+	def stopMoveForward(self):
 		if currentAction == "FORWARD":
 			stopMoving()
 		elif((currentAction == "LEFT" or currentAction == "RIGHT") and currentForwardBackwardAction == "FORWARD"):
 			currentForwardBackwardAction = "STOPPED"
 
-	def stopMoveBackward():
+	def stopMoveBackward(self):
 		if currentAction == "BACKWARD":
 			stopMoving()
 		elif((currentAction == "LEFT" or currentAction == "RIGHT") and currentForwardBackwardAction == "BACKWARD"):
 			currentForwardBackwardAction = "STOPPED"
 
-	def stopTurnLeft():
+	def stopTurnLeft(self):
 		if(currentAction == "LEFT"):
 			if(currentForwardBackwardAction == "STOPPED"):
 				stopMoving()
@@ -99,7 +99,7 @@ class roboCar(object):
 				moveBackward()
 
 
-	def stopTurnRight():
+	def stopTurnRight(self):
 		if(currentAction == "RIGHT"):
 			if(currentForwardBackwardAction == "STOPPED"):
 				stopMoving()
@@ -108,6 +108,6 @@ class roboCar(object):
 			elif(currentForwardBackwardAction == "BACKWARD"):
 				moveBackward()
 
-	def cleanupBeforeQuit():
+	def cleanupBeforeQuit(self):
 		stopMoving()
 		GPIO.cleanup()
