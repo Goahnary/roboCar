@@ -80,35 +80,35 @@ class roboCar(object):
 
 	def stopMoveForward(self):
 		if self.currentAction == "FORWARD":
-			stopMoving()
+			self.stopMoving()
 		elif((self.currentAction == "LEFT" or self.currentAction == "RIGHT") and self.currentForwardBackwardAction == "FORWARD"):
 			self.currentForwardBackwardAction = "STOPPED"
 
 	def stopMoveBackward(self):
 		if self.currentAction == "BACKWARD":
-			stopMoving()
+			self.stopMoving()
 		elif((self.currentAction == "LEFT" or self.currentAction == "RIGHT") and self.currentForwardBackwardAction == "BACKWARD"):
 			self.currentForwardBackwardAction = "STOPPED"
 
 	def stopTurnLeft(self):
 		if(self.currentAction == "LEFT"):
 			if(self.currentForwardBackwardAction == "STOPPED"):
-				stopMoving()
+				self.stopMoving()
 			elif(self.currentForwardBackwardAction == "FORWARD"):
-				moveForward()
+				self.moveForward()
 			elif(self.currentForwardBackwardAction == "BACKWARD"):
-				moveBackward()
+				self.moveBackward()
 
 
 	def stopTurnRight(self):
 		if(self.currentAction == "RIGHT"):
 			if(self.currentForwardBackwardAction == "STOPPED"):
-				stopMoving()
+				self.stopMoving()
 			elif(self.currentForwardBackwardAction == "FORWARD"):
-				moveForward()
+				self.moveForward()
 			elif(self.currentForwardBackwardAction == "BACKWARD"):
-				moveBackward()
+				self.moveBackward()
 
 	def cleanupBeforeQuit(self):
-		stopMoving()
+		self.stopMoving()
 		GPIO.cleanup()
