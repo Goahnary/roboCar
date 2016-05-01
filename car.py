@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time
 import socket
 import sys
@@ -18,15 +20,20 @@ except socket.gaierror:
 # connects to our server and asks for input
 clientSocket.connect((ip, port)) # accepts a tuple of the ip and port
 
-print "Enter text to be uppercased"
-
-if(handleConnect(clientSocket)):
-	receiveCommands(clientSocket)
-
-
+def handleConnect(clientSocket):
+	clientSocket.send("CONNECT CAR\r\n")    # Tell the server a car is here
+	while(True):
+		
+		response = clientSocket.recv(1024)
+		if(response == "CONTROL DISCONNECTED"):
+			time.sleep(15)
+			clientSocket.send("CONTROL STATUS\r\n")    # Tell the server a car is here
+			continue
+		else:
+			return True
 
 def processCommand(rawCommand):
-	if(rawCommand.indexOf(" ") == -1):
+	if(not ' ' in rawCommand):
 		# All commands have a space in them
 		return
 
@@ -43,7 +50,7 @@ def processCommand(rawCommand):
 		elif(subCommand == "BACKWARD"):
 			pass
 		else:
-			print "Uknown MOVE subCommand " + subcommand
+			print "Unknown MOVE subCommand " + subCommand
 	elif (command == "ACTION"):
 		if(subCommand == "STOP"):
 			pass
@@ -54,7 +61,7 @@ def processCommand(rawCommand):
 	else:
 		print "Unknown command " + command
 
-receiveCommands(clientSocket):
+def receiveCommands(clientSocket):
 	running = True
 	while(running):
 		#clientSocket.send(message + "\r\n") # sends to server, without the \r\n it doesn't work
@@ -62,17 +69,9 @@ receiveCommands(clientSocket):
 		print response.replace("\r\n","")   # remove extra new line characters
 		processCommand(response)            # send the command for processing
 		
-	
 	clientSocket.close()
 
-def handleConnect(clientSocket):
-	clientSocket.send("CONNECT CAR\r\n")    # Tell the server a car is here
-	while(True):
-		
-		response = clientSocket.recv(1024)
-		if(response == "CONTROL DISCONNECTED"):
-			time.sleep(30)
-			clientSocket.send("CONTROL STATUS\r\n")    # Tell the server a car is here
-			continue
-		else:
-			return True
+if(handleConnect(clientSocket)):
+	receiveCommands(clientSocket)
+
+
