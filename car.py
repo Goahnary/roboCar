@@ -41,20 +41,20 @@ def processCommand(rawCommand):
 	subCommand = rawCommand.split(" ")[1]
 
 	if(command == "MOVE"):
-		if(subCommand == "FORWARD"):
+		if(subCommand == "FORWARD\r\n"):
 			pass
-		elif(subCommand == "LEFT"):
+		elif(subCommand == "LEFT\r\n"):
 			pass
-		elif(subCommand == "RIGHT"):
+		elif(subCommand == "RIGHT\r\n"):
 			pass
-		elif(subCommand == "BACKWARD"):
+		elif(subCommand == "BACKWARD\r\n"):
 			pass
 		else:
 			print "Unknown MOVE subCommand " + subCommand
 	elif (command == "ACTION"):
-		if(subCommand == "STOP"):
+		if(subCommand == "STOP\r\n"):
 			pass
-		elif(subCommand == "DISCONNECT"):
+		elif(subCommand == "DISCONNECT\r\n"):
 			pass
 		else:
 			pass
