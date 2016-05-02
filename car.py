@@ -3,8 +3,10 @@
 import time
 import socket
 import sys
+from roboCar import roboCar
 
 port = 1337
+car = roboCar()
 
 # create our socket, or quit trying
 try:
@@ -42,21 +44,23 @@ def processCommand(rawCommand):
 
 	if(command == "MOVE"):
 		if(subCommand == "FORWARD\r\n"):
-			pass
+			car.moveForward()
 		elif(subCommand == "LEFT\r\n"):
-			pass
+			car.moveLeft()
 		elif(subCommand == "RIGHT\r\n"):
-			pass
+			car.moveRight()
 		elif(subCommand == "BACKWARD\r\n"):
-			pass
+			car.moveBackward()
 		else:
 			print "Unknown MOVE subCommand " + subCommand
 	elif (command == "ACTION"):
 		if(subCommand == "STOP\r\n"):
-			pass
+			car.stopMoving()
 		elif(subCommand == "DISCONNECT\r\n"):
-			pass
+			car.cleanupBeforeQuit()
+			sys.exit(0)
 		else:
+			print "Unknown ACTION command " + command
 			pass
 	else:
 		print "Unknown command " + command
